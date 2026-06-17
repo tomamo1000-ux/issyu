@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>百人一首 下の句クイズ</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="quiz-panel" aria-labelledby="app-title">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">百人一首</p>
+            <h1 id="app-title">上の句から下の句を当てる</h1>
+          </div>
+          <div class="score-card" aria-live="polite">
+            <span id="score">0 / 0</span>
+            <small id="accuracy">正答率 0%</small>
+          </div>
+        </header>
+        <div class="controls" aria-label="出題設定">
+          <label>
+            範囲
+            <select id="range">
+              <option value="all">全100首</option>
+              <option value="1-20">1-20番</option>
+              <option value="21-40">21-40番</option>
+              <option value="41-60">41-60番</option>
+              <option value="61-80">61-80番</option>
+              <option value="81-100">81-100番</option>
+              <option value="missed">間違えた札</option>
+            </select>
+          </label>
+          <button id="shuffle" type="button">出題を入れ替え</button>
+          <button id="reset" type="button">成績リセット</button>
+        </div>
+        <article class="poem-card">
+          <div class="card-meta">
+            <span id="poem-number">一</span>
+            <span id="poet">天智天皇</span>
+          </div>
+          <p class="prompt-label">上の句</p>
+          <p id="upper" class="upper">秋の田の かりほの庵の とまをあらみ</p>
+        </article>
+        <section class="choices" id="choices" aria-label="下の句の選択肢"></section>
+        <section class="feedback" id="feedback" aria-live="polite">
+          <p>下の句を選んでください。</p>
+        </section>
+        <div class="actions">
+          <button id="next" type="button" disabled>次の問題</button>
+          <button id="show-answer" type="button">答えを見る</button>
+        </div>
+      </section>
+      <aside class="study-panel" aria-label="学習状況">
+        <h2>練習メモ</h2>
+        <div class="stat-grid">
+          <div>
+            <span id="remaining">100</span>
+            <small>出題候補</small>
+          </div>
+          <div>
+            <span id="streak">0</span>
+            <small>連続正解</small>
+          </div>
+        </div>
+        <h3>間違えた札</h3>
+        <ul id="missed-list" class="missed-list"></ul>
+        <p class="source-note">
+          歌データ: Wikisource「小倉百人一首」 / 背景: 生成画像
+        </p>
+      </aside>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>
