@@ -1,0 +1,455 @@
+:root {
+  color-scheme: light;
+  --ink: #211a16;
+  --muted: #6e5f55;
+  --paper: rgba(255, 250, 239, 0.94);
+  --paper-solid: #fff9ed;
+  --line: rgba(83, 50, 33, 0.18);
+  --red: #9f2f2f;
+  --red-dark: #6f2022;
+  --green: #2f6d59;
+  --gold: #c99b4a;
+  --shadow: 0 20px 70px rgba(38, 24, 13, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(20, 30, 20, 0.42), rgba(255, 250, 235, 0.3)),
+    url("./assets/karuta-background.png") center / cover fixed;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button,
+select {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf0;
+  color: var(--ink);
+}
+
+button {
+  min-height: 46px;
+  padding: 0 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(111, 32, 34, 0.45);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+select {
+  min-height: 46px;
+  padding: 0 36px 0 12px;
+  font-size: 16px;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 28px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 20px;
+  align-items: center;
+}
+
+.quiz-panel,
+.study-panel {
+  background: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.quiz-panel {
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.study-panel {
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 18px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--red-dark);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(30px, 5vw, 56px);
+  line-height: 1.06;
+}
+
+h2 {
+  margin-bottom: 18px;
+  font-size: 24px;
+}
+
+h3 {
+  margin: 22px 0 10px;
+  font-size: 17px;
+}
+
+.score-card {
+  min-width: 128px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.58);
+  text-align: right;
+}
+
+.score-card span {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.score-card small,
+.stat-grid small,
+.source-note {
+  color: var(--muted);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  align-items: end;
+}
+
+.controls label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.poem-card {
+  position: relative;
+  min-height: 260px;
+  border: 1px solid rgba(106, 67, 41, 0.25);
+  border-radius: 8px;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(255, 245, 222, 0.88)),
+    repeating-linear-gradient(90deg, transparent 0 34px, rgba(122, 79, 49, 0.05) 34px 35px);
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.card-meta span:first-child {
+  color: var(--red-dark);
+  font-weight: 700;
+}
+
+.prompt-label {
+  margin: 28px 0 8px;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.upper {
+  margin: 0;
+  font-size: clamp(32px, 5.2vw, 64px);
+  line-height: 1.32;
+  text-wrap: balance;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.choice {
+  min-height: 82px;
+  padding: 14px 16px;
+  text-align: left;
+  line-height: 1.45;
+  background: var(--paper-solid);
+}
+
+.choice.correct {
+  border-color: rgba(47, 109, 89, 0.75);
+  background: #eef8ef;
+}
+
+.choice.wrong {
+  border-color: rgba(159, 47, 47, 0.75);
+  background: #fff0ee;
+}
+
+.feedback {
+  min-height: 54px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--gold);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.feedback p {
+  margin-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+#next {
+  background: var(--red-dark);
+  color: #fffdf7;
+  border-color: transparent;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat-grid div {
+  min-height: 86px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.stat-grid span {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.missed-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  max-height: 330px;
+  overflow: auto;
+}
+
+.missed-list li {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.source-note {
+  margin: 22px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 920px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .study-panel {
+    order: 2;
+  }
+}
+
+@media (max-width: 620px) {
+  body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+
+  .app-shell {
+    width: 100%;
+    min-height: auto;
+    padding: 0;
+    gap: 0;
+  }
+
+  .quiz-panel,
+  .study-panel {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+    padding: 16px;
+  }
+
+  .topbar {
+    display: grid;
+    gap: 12px;
+    padding-bottom: 14px;
+  }
+
+  .eyebrow {
+    margin-bottom: 4px;
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.18;
+  }
+
+  .score-card {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 12px;
+  }
+
+  .score-card span {
+    font-size: 24px;
+    white-space: nowrap;
+  }
+
+  .controls {
+    margin: 14px 0;
+    gap: 8px;
+  }
+
+  .controls label,
+  .controls select,
+  .controls button {
+    width: 100%;
+  }
+
+  .poem-card {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .card-meta {
+    align-items: center;
+    font-size: 14px;
+  }
+
+  .prompt-label {
+    margin: 18px 0 6px;
+  }
+
+  .upper {
+    font-size: 30px;
+    line-height: 1.38;
+    overflow-wrap: anywhere;
+  }
+
+  .choices {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .choice {
+    min-height: 64px;
+    padding: 12px 14px;
+    font-size: 17px;
+    line-height: 1.42;
+  }
+
+  .actions,
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    margin: 12px -16px -16px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(255, 250, 239, 0.96);
+    border-top: 1px solid var(--line);
+  }
+
+  .feedback {
+    min-height: 0;
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .study-panel {
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+  }
+
+  .stat-grid div {
+    min-height: 74px;
+    padding: 12px;
+  }
+
+  .missed-list {
+    max-height: 230px;
+  }
+}
+
+@media (max-width: 380px) {
+  h1 {
+    font-size: 25px;
+  }
+
+  .upper {
+    font-size: 26px;
+  }
+
+  .choice {
+    font-size: 16px;
+  }
+}
